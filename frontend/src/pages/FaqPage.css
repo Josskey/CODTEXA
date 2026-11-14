@@ -1,0 +1,189 @@
+.faq-page {
+  min-height: 100vh;
+
+  background: #050505;
+  color: #fff;
+}
+
+.faq-hero {
+  position: relative;
+
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+
+  overflow-x: hidden;
+}
+
+.faq-hero::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 100vh;
+min-height: 100vh;
+  background-image: url("/images/faq-hero.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+
+  z-index: 0;
+}
+
+
+
+.faq-wrapper {
+  width: 100%;
+
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  padding: 110px 40px 60px;
+
+  text-align: center;
+
+  position: relative;
+
+  z-index: 1;
+}
+
+.faq-line {
+  display: block;
+
+  width: 140px;
+  height: 3px;
+
+  background: #fff;
+
+  margin: 0 auto 24px;
+
+  transform: translateY(16px);
+}
+
+.faq-wrapper h1 {
+  font-size: clamp(42px, 4vw, 72px);
+
+  line-height: .95;
+
+  margin-bottom: 30px;
+}
+
+.faq-wrapper p {
+  font-size: clamp(18px, 1.8vw, 26px);
+
+  line-height: 1.6;
+
+  max-width: 700px;
+
+  margin: 0 auto 40px;
+
+  color: rgba(255,255,255,.85);
+}
+
+.faq-list {
+  width: 100%;
+
+  max-width: 700px;
+
+  margin: 0 auto;
+}
+
+.faq-item {
+  margin-bottom: 14px;
+}
+
+.faq-card {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+  background: rgba(0,0,0,.3);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  border-radius: 18px;
+
+  padding: 18px 20px;
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.faq-card:hover {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.12),
+      rgba(255,255,255,.03)
+    );
+}
+
+.faq-number {
+  min-width: 42px;
+
+  font-size: 13px;
+
+  color: rgba(255,255,255,.45);
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+.faq-question {
+  flex: 1;
+
+  text-align: left;
+}
+
+.faq-arrow {
+  min-width: 24px;
+
+  text-align: right;
+
+  opacity: .6;
+}
+
+.faq-answer {
+  margin-top: 10px;
+
+  padding: 18px 22px;
+
+  border-radius: 18px;
+
+  background: rgba(255,255,255,.04);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  color: rgba(255,255,255,.8);
+
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+
+  .faq-wrapper {
+    padding: 120px 20px 80px;
+  }
+
+  .faq-wrapper p {
+    margin-bottom: 80px;
+  }
+
+}
+
+

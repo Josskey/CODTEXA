@@ -1,8 +1,5 @@
-import {
-  Link,
-  Outlet
-} from "react-router-dom";
-
+import { Link, Outlet } from "react-router-dom";
+import "./UserLayout.css";
 export default function UserLayout() {
 
   function logout() {
@@ -18,23 +15,9 @@ export default function UserLayout() {
 
   return (
 
-    <div
-      style={{
-        display: "flex",
-        minHeight: "100vh",
-        background: "#f8fafc"
-      }}
-    >
+    <div className="user-layout">
 
-      <aside
-        style={{
-          width: 260,
-          background: "#ffffff",
-          borderRight: "1px solid #e5e7eb",
-          padding: 24,
-          boxSizing: "border-box"
-        }}
-      >
+      <aside className="user-sidebar">
 
         <h1
           style={{
@@ -84,32 +67,17 @@ export default function UserLayout() {
           </Link>
 
           <button
-            onClick={logout}
-            style={{
-              marginTop: 24,
-              padding: 12,
-              border: "none",
-              borderRadius: 8,
-              background: "#dc2626",
-              color: "white",
-              cursor: "pointer",
-              fontWeight: "bold"
-            }}
-          >
-            🚪 Выйти
-          </button>
+  onClick={logout}
+  className="logout-button"
+>
+  🚪 Выйти
+</button>
 
         </nav>
 
       </aside>
 
-      <main
-        style={{
-          flex: 1,
-          padding: 32,
-          overflowY: "auto"
-        }}
-      >
+      <main className="user-main">
         <Outlet />
       </main>
 

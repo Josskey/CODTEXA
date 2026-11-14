@@ -1,0 +1,58 @@
+.legal-document-page {
+  min-height: 100vh;
+
+  background: #050505;
+  color: white;
+}
+
+.legal-document {
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  padding: 180px 40px 120px;
+}
+
+.document-label {
+  display: inline-block;
+
+  margin-bottom: 30px;
+
+  color: rgba(255,255,255,.4);
+
+  font-size: 12px;
+
+  letter-spacing: 2px;
+}
+
+.legal-document h1 {
+  font-size: 72px;
+
+  line-height: .95;
+
+  margin-bottom: 20px;
+}
+
+.document-date {
+  color: rgba(255,255,255,.55);
+
+  margin-bottom: 80px;
+}
+
+.legal-document section {
+  margin-bottom: 60px;
+}
+
+.legal-document h2 {
+  font-size: 28px;
+
+  margin-bottom: 16px;
+}
+
+.legal-document p {
+  color: rgba(255,255,255,.8);
+
+  line-height: 1.8;
+
+  font-size: 18px;
+}

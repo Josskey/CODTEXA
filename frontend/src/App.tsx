@@ -1,8 +1,4 @@
-import {
-  Routes,
-  Route,
-  Navigate
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import LoginPage from "./admin/LoginPage";
 import ProtectedRoute from "./admin/ProtectedRoute";
@@ -32,7 +28,15 @@ import ProfilePage from "./user/ProfilePage";
 import UserLayout from "./user/UserLayout";
 
 import ActivateInfoPage from "./user/ActivateInfoPage";
+import LandingPage from "./public/LandingPage";
 
+import LegalPage from "./pages/LegalPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsPage from "./pages/TermsPage";
+import PersonalDataPage from "./pages/PersonalDataPage";
+import OfferPage from "./pages/OfferPage";
+import CookiesPage from "./pages/CookiesPage";
+import FaqPage from "./pages/FaqPage";
 
 export default function App() {
 
@@ -42,11 +46,44 @@ export default function App() {
 
       <Route
         path="/"
-        element={
-          <Navigate to="/adm/dashboard" />
-        }
+        element={<LandingPage />}
+        
+      />
+    <Route
+        path="/legal"
+        element={<LegalPage />}
       />
 
+      <Route
+  path="/legal/privacy"
+  element={<PrivacyPolicy />}
+/>
+
+<Route
+  path="/legal/terms"
+  element={<TermsPage />}
+/>
+
+<Route
+  path="/legal/personal-data"
+  element={<PersonalDataPage />}
+/>
+
+<Route
+  path="/legal/offer"
+  element={<OfferPage />}
+/>
+
+<Route
+  path="/legal/cookies"
+  element={<CookiesPage />}
+/>
+
+<Route
+  path="/faq"
+  element={<FaqPage />}
+/>
+      
       {/* Admin Login */}
 
       <Route

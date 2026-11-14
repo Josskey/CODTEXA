@@ -1,0 +1,267 @@
+/* =========================================================
+   QR T-SHIRT — QR DIGITAL ATMOSPHERE
+   Independent visual layer. Does not change layout dimensions.
+   ========================================================= */
+
+:root {
+  --qrfx-white: rgba(255, 255, 255, 0.82);
+  --qrfx-dim: rgba(255, 255, 255, 0.14);
+  --qrfx-glow: rgba(220, 235, 255, 0.20);
+}
+
+/* Fixed effects layer */
+.qrfx-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  contain: strict;
+}
+
+.qrfx-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.72;
+}
+
+/* Very subtle scan beam */
+.qrfx-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 6px;
+
+  opacity: 0;
+
+  background: linear-gradient(
+  to bottom,
+  transparent,
+  rgba(255,255,255,.03),
+  rgba(255,255,255,.85),
+  rgba(255,255,255,.03),
+  transparent
+);
+
+  box-shadow:
+  0 0 6px rgba(255,255,255,.15),
+  0 0 12px rgba(220,235,255,.08),
+  0 0 24px rgba(220,235,255,.04);
+
+  animation: qrfx-scan 22s linear infinite;
+}
+
+@keyframes qrfx-scan {
+  0% {
+    transform: translateY(105px);
+    opacity: 0;
+  }
+
+  0.5% {
+    opacity: .95;
+  }
+
+  95% {
+    transform: translateY(125vh);
+    opacity: .8;
+  }
+
+  100% {
+    transform: translateY(125vh);
+    opacity: 0;
+  }
+}
+
+/* Pixel fragments created by JS */
+.qrfx-pixel {
+  position: absolute;
+  display: block;
+  width: var(--qrfx-size, 10px);
+  height: var(--qrfx-size, 10px);
+  left: var(--qrfx-x);
+  top: var(--qrfx-y);
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.025);
+  box-shadow: 0 0 16px rgba(255,255,255,.035);
+  opacity: 0;
+  transform: scale(.65);
+  animation: qrfx-pixel-flicker var(--qrfx-duration, 5s) ease-in-out var(--qrfx-delay, 0s) infinite;
+}
+
+@keyframes qrfx-pixel-flicker {
+  0%, 100% { opacity: 0; transform: scale(.65); }
+  35%, 62% { opacity: var(--qrfx-opacity, .28); transform: scale(1); }
+}
+
+/* QR-inspired corner brackets */
+.qrfx-corner {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  opacity: 0;
+  transition: opacity .7s ease, transform .7s ease;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,.25));
+}
+
+.qrfx-corner::before,
+.qrfx-corner::after {
+  content: "";
+  position: absolute;
+  background: rgba(255,255,255,.56);
+}
+
+.qrfx-corner::before { width: 100%; height: 1px; }
+.qrfx-corner::after { width: 1px; height: 100%; }
+
+.qrfx-corner--tl {
+  left: max(24px, calc((100vw - 1600px) / 2));
+  top: 100px;
+}
+
+.qrfx-corner--tr {
+  right: max(24px, calc((100vw - 1600px) / 2));
+  top: 100px;
+  transform: rotate(90deg);
+}
+
+.qrfx-corner--bl {
+  left: max(24px, calc((100vw - 1600px) / 2));
+  bottom: 100px;
+  transform: rotate(-90deg);
+}
+
+.qrfx-corner--br {
+  right: max(24px, calc((100vw - 1600px) / 2));
+  bottom: 100px;
+  transform: rotate(180deg);
+}
+
+.qrfx-overlay.qrfx-active .qrfx-corner { opacity: .65; }
+
+/* Soft light sweep over suitable cards/images on hover */
+.qrfx-hover-target {
+  position: relative;
+  isolation: isolate;
+}
+
+.qrfx-hover-target::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(255,255,255,.075) 48%,
+    transparent 70%
+  );
+  transform: translateX(-18%);
+  transition: opacity .45s ease, transform .8s ease;
+}
+
+.qrfx-hover-target:hover::after {
+  opacity: 1;
+  transform: translateX(18%);
+}
+
+/* Scroll reveal — only activated on elements selected by JS */
+.qrfx-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity .85s cubic-bezier(.2,.7,.2,1),
+    transform .85s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+
+.qrfx-reveal.qrfx-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional subtle highlight for buttons */
+.qrfx-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.qrfx-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.16), transparent 70%);
+  transform: translateX(-110%);
+}
+
+.qrfx-button:hover::before {
+  opacity: 1;
+  transform: translateX(110%);
+  transition: transform .75s ease, opacity .2s ease;
+}
+
+/* Respect accessibility preferences */
+@media (prefers-reduced-motion: reduce) {
+  .qrfx-scanline,
+  .qrfx-pixel {
+    animation: none !important;
+  }
+
+  .qrfx-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .qrfx-hover-target::after,
+  .qrfx-button::before {
+    transition: none;
+  }
+}
+
+/* Keep the effects quiet on small screens */
+@media (max-width: 600px) {
+  .qrfx-canvas { opacity: .42; }
+  .qrfx-scanline { opacity: .45; }
+  .qrfx-corner { width: 22px; height: 22px; }
+}
+
+.about,
+.split-section {
+  position: relative;
+}
+
+.about::before,
+.split-section::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 20px;
+
+  pointer-events: none;
+
+  border-radius: 24px;
+
+  box-shadow:
+    inset 2px 0 0 rgba(255,255,255,.18),
+    inset 0 2px 0 rgba(255,255,255,.18),
+    inset -2px 0 0 rgba(255,255,255,.18),
+    inset 0 -2px 0 rgba(255,255,255,.18);
+}
+@media (max-width: 600px) {
+  .about::before,
+  .split-section::before {
+    inset: 8px;
+    border-radius: 16px;
+  }
+}
