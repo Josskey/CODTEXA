@@ -25,7 +25,7 @@ export default function UserLayout() {
             marginBottom: 32
           }}
         >
-          QR Shirts
+          CODTEXA
         </h1>
 
         <nav

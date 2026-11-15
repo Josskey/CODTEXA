@@ -53,7 +53,7 @@ export default function LoginPage() {
       <div className="auth-card">
 
         <h1 className="auth-title">
-          QR Shirts Admin
+          CODTEXA Admin
         </h1>
 
         <input

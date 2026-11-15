@@ -42,7 +42,7 @@ export default function AdminLayout() {
             marginBottom: 32
           }}
         >
-          QR Shirts
+          CODTEXA
         </h1>
 
         <button

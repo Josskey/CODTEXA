@@ -60,7 +60,7 @@ export default function DashboardPage() {
           marginBottom: 24
         }}
       >
-        Добро пожаловать в админку QR Shirts
+        Добро пожаловать в админку CODTEXA
       </p>
 
       <div

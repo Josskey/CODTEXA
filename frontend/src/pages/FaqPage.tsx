@@ -69,7 +69,7 @@ export default function FaqPage() {
 
           <p>
             Ответы на самые популярные вопросы
-            пользователей платформы QR T-SHIRT.
+            пользователей платформы CODTEXA.
           </p>
 
           <div className="faq-list">

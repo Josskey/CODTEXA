@@ -1,5 +1,5 @@
 /**
- * QR T-SHIRT — QR DIGITAL ATMOSPHERE
+ * CODTEXA — CODTEXA DIGITAL ATMOSPHERE
  * React / TSX:
  *   import { useEffect } from "react";
  *   import "./qr-effects.css";

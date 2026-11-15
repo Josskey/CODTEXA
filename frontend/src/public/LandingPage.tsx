@@ -82,19 +82,21 @@ export default function LandingPage() {
             Ваш цифровой профиль всегда под рукой.
           </p>
 
-          <Link
-  to="/register"
+          <a
+  href="https://vk.ru/codtexa"
+  target="_blank"
+  rel="noopener noreferrer"
   className="hero-button"
 >
   Купить футболку →
-</Link>
+</a>
 
 <div className="hero-meta">
 
   <div className="hero-line" />
 
   <span>
-    QR T-SHIRT
+    CODTEXA
   </span>
 
 </div>
@@ -301,17 +303,19 @@ export default function LandingPage() {
     </h2>
 
     <p>
-      QR T-SHIRT позволяет объединить
+      CODTEXA позволяет объединить
       физическую одежду с цифровым
       контентом и данными владельца.
     </p>
 
-    <Link
-      to="/register"
-      className="hero-button"
-    >
-      Узнать больше →
-    </Link>
+    <a
+  href="https://vk.ru/codtexa"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hero-button"
+>
+  Узнать больше →
+</a>
 
   </div>
 
@@ -473,7 +477,7 @@ export default function LandingPage() {
   <div className="cta-content">
 
     <h2>
-      QR T-SHIRT
+      CODTEXA
     </h2>
 
     <h3>
@@ -485,12 +489,14 @@ export default function LandingPage() {
       умной одежды.
     </p>
 
-    <Link
-      to="/register"
-      className="hero-button"
-    >
-      Купить сейчас →
-    </Link>
+    <a
+  href="https://vk.ru/codtexa"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hero-button"
+>
+  Купить сейчас →
+</a>
 
   </div>
 
@@ -525,7 +531,7 @@ export default function LandingPage() {
       <div className="footer-socials">
 
         <a
-          href="https://vk.com/"
+          href="https://vk.ru/codtexa"
           target="_blank"
           rel="noreferrer"
           className="vk-link"
@@ -540,7 +546,7 @@ export default function LandingPage() {
     <div className="footer-bottom">
 
       <div className="footer-copyright">
-        © 2026 QR T-SHIRT. Все права защищены.
+        © 2026 CODTEXA. Все права защищены.
       </div>
 
       <div className="footer-slogan">
