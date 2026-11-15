@@ -28,11 +28,11 @@ export default function LandingPage() {
         </div>
 
         <nav className="landing-nav">
-          <a href="#about">О продукте</a>
-          <a href="#how">Как это работает</a>
-          <a href="#faq">FAQ</a>
-          <a href="#contacts">Контакты</a>
-        </nav>
+  <a href="#about">О продукте</a>
+  <a href="#how">Как это работает</a>
+  <a href="#possibilities">Возможности</a>
+  <a href="#audience">Для кого</a>
+</nav>
 
         <div className="landing-actions">
           <Link
@@ -79,8 +79,7 @@ export default function LandingPage() {
           <p>
             Один QR-код.
             Безграничные возможности.
-            Меняй свою цифровую физитку тогда, 
-            когда захочешь.
+            Ваш цифровой профиль всегда под рукой.
           </p>
 
           <Link
@@ -131,9 +130,10 @@ export default function LandingPage() {
           </h2>
 
           <p>
-            Каждая футболка оснащена
-            уникальным QR-кодом и может
-            быть привязана к владельцу.
+            Каждая футболка содержит
+            уникальный QR-код, который
+            подтверждает владение и открывает
+            доступ к вашему цифровому профилю.
           </p>
 
           <div className="advantages">
@@ -203,9 +203,9 @@ export default function LandingPage() {
     </h2>
 
     <p>
-      Процесс активации занимает
-      всего несколько минут и не требует
-      специальных навыков.
+      Активируйте футболку за несколько
+      минут и управляйте своим цифровым
+      профилем через личный кабинет.
     </p>
 
     <Link
@@ -286,7 +286,8 @@ export default function LandingPage() {
 
 </section>
 
-      <section className="split-section">
+      <section id="possibilities" 
+      className="split-section">
 
   <div className="split-left">
 
@@ -378,7 +379,8 @@ export default function LandingPage() {
 
 </section>
 
-      <section className="split-section">
+      <section id="audience"
+  className="split-section">
 
   <div className="split-left">
 
@@ -393,10 +395,10 @@ export default function LandingPage() {
     </h2>
 
     <p>
-      От коллекционеров до брендов.
-      QR T-SHIRT подходит каждому,
-      кто хочет подтвердить
-      владение изделием.
+      Для создателей, брендов,
+      коллекционеров и всех, кто хочет
+      связать реальный продукт
+      с цифровым пространством.
     </p>
 
   </div>
@@ -495,63 +497,59 @@ export default function LandingPage() {
 </section>
 
       <footer id="contacts" className="footer">
-        <div className="footer-inner">
-  <div className="footer-top">
+  <div className="footer-inner">
 
-  <div className="footer-brand">
-    <span>QR</span>
-    <span>T-SHIRT</span>
+    <div className="footer-top">
+
+      <div className="footer-brand">
+        <span>QR</span>
+        <span>T-SHIRT</span>
+      </div>
+
+      <div className="footer-center">
+
+        <div className="footer-links">
+
+          <Link to="/faq">
+            FAQ
+          </Link>
+
+          <Link to="/legal">
+            Правовые документы
+          </Link>
+
+        </div>
+
+      </div>
+
+      <div className="footer-socials">
+
+        <a
+          href="https://vk.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="vk-link"
+        >
+          <FaVk />
+        </a>
+
+      </div>
+
+    </div>
+
+    <div className="footer-bottom">
+
+      <div className="footer-copyright">
+        © 2026 QR T-SHIRT. Все права защищены.
+      </div>
+
+      <div className="footer-slogan">
+        WEAR. SCAN. EXPLORE.
+      </div>
+
+    </div>
+
   </div>
-
-  <div className="footer-center">
-
-    <div className="footer-links">
-
-  <a href="#about">О компании</a>
-
-  <Link to="/faq">
-  FAQ
-</Link>
-
-  <a href="#contacts">Контакты</a>
-
-  <Link to="/legal">
-    Правовые документы
-  </Link>
-
-</div>
-
-  </div>
-
-  <div className="footer-socials">
-
-  <a
-    href="https://vk.com/"
-    target="_blank"
-    rel="noreferrer"
-    className="vk-link"
-  >
-    <FaVk />
-  </a>
-
-</div>
-
-</div>
-
-
-  <div className="footer-bottom">
-
-  <div className="footer-copyright">
-    © 2026 QR T-SHIRT. Все права защищены.
-  </div>
-
-  <div className="footer-slogan">
-    WEAR. SCAN. EXPLORE.
-  </div>
-
-</div>
-
-</div>
 </footer>
 
     </div>
