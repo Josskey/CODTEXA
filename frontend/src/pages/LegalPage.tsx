@@ -41,9 +41,7 @@ export default function LegalPage() {
     <div className="legal-page">
       <header className="landing-header">
         <div className="landing-logo">
-          QR
-          <br />
-          T-SHIRT
+          CODTEXA
         </div>
 
         <nav className="landing-nav legal-nav">

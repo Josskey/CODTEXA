@@ -45,9 +45,7 @@ export default function FaqPage() {
 
       <header className="landing-header">
         <div className="landing-logo">
-          QR
-          <br />
-          T-SHIRT
+          CODTEXA
         </div>
 
         <nav className="landing-nav legal-nav">
