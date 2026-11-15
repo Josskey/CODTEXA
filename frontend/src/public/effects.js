@@ -38,14 +38,7 @@ export function initQrEffects(options = {}) {
   scanline.className = "qrfx-scanline";
   overlay.appendChild(scanline);
 
-  /*
-["tl", "tr", "bl", "br"].forEach((corner) => {
-  const el = document.createElement("span");
-  el.className = `qrfx-corner qrfx-corner--${corner}`;
-  overlay.appendChild(el);
-});
-*/
-
+ 
   if (!reducedMotion) {
     for (let i = 0; i < settings.pixelCount; i += 1) {
       const pixel = document.createElement("span");
@@ -75,12 +68,16 @@ export function initQrEffects(options = {}) {
   }
 
   document.body.appendChild(overlay);
+document.documentElement.classList.add(
+  "qr-noise-enabled"
+);
+
+
 
   const ctx = canvas.getContext("2d");
   let width = 0;
   let height = 0;
   let rafId = 0;
-  let lastDraw = 0;
   let active = true;
 
   function drawFinder(x, y, cell) {
@@ -92,6 +89,68 @@ export function initQrEffects(options = {}) {
     ctx.fillStyle = "rgba(235,242,255,.07)";
     ctx.fillRect(x + cell * 2, y + cell * 2, cell, cell);
   }
+let rainLines = [];
+
+function createRainLines() {
+  rainLines = [];
+
+  const count = width > 768 ? 600 : 300;
+
+  for (let i = 0; i < count; i++) {
+    rainLines.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      length: 40 + Math.random() * 260,
+      speed: 0.03 + Math.random() * 0.15,
+      alpha: 0.015 + Math.random() * 0.04,
+      lineWidth: 1
+    });
+  }
+}
+
+  function drawDigitalRain() {
+  if (!ctx) return;
+
+  rainLines.forEach(line => {
+
+    ctx.beginPath();
+
+    ctx.strokeStyle =
+      `rgba(255,255,255,${line.alpha})`;
+
+    ctx.lineWidth = line.lineWidth;
+
+    ctx.moveTo(
+      line.x,
+      line.y
+    );
+
+    ctx.lineTo(
+      line.x,
+      line.y + line.length
+    );
+
+    ctx.stroke();
+
+    line.y += line.speed;
+
+    if (line.y > height + line.length) {
+
+      line.y = -line.length;
+
+      line.x = Math.random() * width;
+
+      line.length =
+        40 + Math.random() * 260;
+
+      line.alpha =
+        0.015 + Math.random() * 0.04;
+
+      line.speed =
+        0.03 + Math.random() * 0.15;
+    }
+  });
+}
 
   function drawGrid() {
     if (!ctx || !active) return;
@@ -122,8 +181,10 @@ export function initQrEffects(options = {}) {
     });
 
     drawFinder(22, height * 0.18 + 104, 5);
-    drawFinder(width - 47, height * 0.56 - 58, 5);
-  }
+drawFinder(width - 47, height * 0.56 - 58, 5);
+
+drawDigitalRain();
+}
 
   function resizeCanvas() {
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -134,17 +195,21 @@ export function initQrEffects(options = {}) {
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
+    createRainLines();
     drawGrid();
   }
 
-  function animate(timestamp) {
-    if (!active || reducedMotion) return;
-    if (timestamp - lastDraw > 1800) {
-      drawGrid();
-      lastDraw = timestamp;
-    }
-    rafId = window.requestAnimationFrame(animate);
+  function animate() {
+  if (!active || reducedMotion) {
+    return;
   }
+
+  drawGrid();
+
+  rafId = window.requestAnimationFrame(
+    animate
+  );
+}
 
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas, { passive: true });
@@ -228,5 +293,8 @@ if (settings.reveal) {
     });
 
     overlay.remove();
+    document.documentElement.classList.remove(
+  "qr-noise-enabled"
+);
   };
 }
