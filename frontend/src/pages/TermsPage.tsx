@@ -14,11 +14,11 @@ export default function TermsPage() {
           T-SHIRT
         </div>
 
-        <nav className="landing-nav">
-          <Link to="/legal">
-            ← Все документы
-          </Link>
-        </nav>
+        <nav className="landing-nav document-nav">
+  <Link to="/legal">
+    ← Все документы
+  </Link>
+</nav>
 
       </header>
 

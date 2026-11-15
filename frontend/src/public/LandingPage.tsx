@@ -27,7 +27,7 @@ export default function LandingPage() {
           T-SHIRT
         </div>
 
-        <nav className="landing-nav">
+        <nav className="landing-nav landing-nav-home">
   <a href="#about">О продукте</a>
   <a href="#how">Как это работает</a>
   <a href="#possibilities">Возможности</a>

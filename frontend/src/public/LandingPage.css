@@ -1305,7 +1305,7 @@ body {
 
 @media (max-width: 500px) {
 
-  .landing-nav {
+  .landing-nav-home {
     display: none;
   }
 

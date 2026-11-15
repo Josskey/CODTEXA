@@ -174,16 +174,200 @@ min-height: 100vh;
   line-height: 1.7;
 }
 
+/* =========================== 900 =========================== */
+
 @media (max-width: 900px) {
 
   .faq-wrapper {
-    padding: 120px 20px 80px;
+    padding: 120px 30px 80px;
+  }
+
+  .faq-wrapper h1 {
+    font-size: clamp(48px, 7vw, 60px);
+    line-height: 1;
   }
 
   .faq-wrapper p {
-    margin-bottom: 80px;
+    margin-bottom: 60px;
   }
 
 }
 
+/* =========================== 700 =========================== */
 
+@media (max-width: 700px) {
+
+  .faq-wrapper {
+    padding: 110px 24px 70px;
+  }
+
+  .faq-wrapper h1 {
+    font-size: clamp(42px, 6vw, 52px);
+  }
+
+  .faq-wrapper p {
+    font-size: 18px;
+  }
+
+  .faq-card {
+    padding: 16px 18px;
+  }
+
+}
+
+/* =========================== 600 =========================== */
+
+@media (max-width: 600px) {
+
+  .faq-wrapper {
+    padding: 90px 20px 60px;
+  }
+
+  .faq-line {
+    width: 90px;
+    margin-bottom: 20px;
+  }
+
+  .faq-wrapper h1 {
+    font-size: 42px;
+    line-height: 1;
+  }
+
+  .faq-wrapper p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .faq-card {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .faq-number {
+    min-width: 32px;
+    font-size: 11px;
+  }
+
+  .faq-question {
+    font-size: 14px;
+  }
+
+  .faq-answer {
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+}
+
+/* =========================== 500 =========================== */
+
+@media (max-width: 500px) {
+
+  .landing-header {
+    padding: 18px 16px;
+  }
+
+  .landing-nav {
+    margin-left: auto;
+  }
+
+  .landing-nav a {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .faq-wrapper {
+    padding: 80px 20px 50px;
+  }
+
+  .faq-wrapper h1 {
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .faq-wrapper p {
+    font-size: 15px;
+  }
+
+  .faq-card {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .faq-number {
+    min-width: 28px;
+    font-size: 10px;
+  }
+
+  .faq-question {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .faq-arrow {
+    min-width: 18px;
+  }
+
+}
+
+/* =========================== 400 =========================== */
+
+@media (max-width: 400px) {
+
+  .landing-header {
+    padding: 16px 12px;
+  }
+
+  .landing-logo {
+    font-size: 18px;
+  }
+
+  .landing-nav a {
+    font-size: 13px;
+  }
+
+  .faq-wrapper {
+    padding: 70px 16px 40px;
+  }
+
+  .faq-wrapper h1 {
+    font-size: 32px;
+    line-height: 1;
+  }
+
+  .faq-wrapper p {
+    font-size: 14px;
+  }
+
+  .faq-card {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .faq-question {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .faq-answer {
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 12px 14px;
+  }
+
+
+}
+
+@media (max-width: 900px) {
+
+  .legal-nav {
+    order: 0;
+    width: auto;
+    margin-left: auto;
+
+    justify-content: flex-end;
+  }
+
+}

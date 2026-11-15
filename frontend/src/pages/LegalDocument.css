@@ -56,3 +56,141 @@
 
   font-size: 18px;
 }
+
+/* =========================== 900 =========================== */
+
+@media (max-width: 900px) {
+
+  .legal-document {
+    padding: 140px 30px 80px;
+  }
+
+  .legal-document h1 {
+    font-size: clamp(48px, 7vw, 56px);
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+
+  .document-date {
+    margin-bottom: 60px;
+  }
+}
+
+/* =========================== 700 =========================== */
+
+@media (max-width: 700px) {
+
+  .legal-document {
+    padding: 120px 24px 70px;
+  }
+
+  .legal-document h1 {
+    font-size: clamp(42px, 6vw, 50px);
+  }
+
+  .legal-document h2 {
+    font-size: 26px;
+  }
+
+  .legal-document p {
+    font-size: 17px;
+  }
+
+}
+
+/* =========================== 600 =========================== */
+
+@media (max-width: 600px) {
+
+  .legal-document {
+    padding: 110px 20px 60px;
+  }
+
+  .document-label {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .legal-document h1 {
+    font-size: 42px;
+    line-height: 1;
+  }
+
+  .document-date {
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  .legal-document section {
+    margin-bottom: 40px;
+  }
+
+  .legal-document h2 {
+    font-size: 24px;
+  }
+
+  .legal-document p {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+}
+
+/* =========================== 500 =========================== */
+
+@media (max-width: 500px) {
+
+  .legal-document {
+    padding: 100px 20px 50px;
+  }
+
+  .legal-document h1 {
+    font-size: 36px;
+    line-height: 1;
+  }
+
+  .legal-document h2 {
+    font-size: 22px;
+  }
+
+  .legal-document p {
+    font-size: 15px;
+  }
+
+}
+
+/* =========================== 400 =========================== */
+
+@media (max-width: 400px) {
+
+  .legal-document {
+    padding: 90px 16px 50px;
+  }
+
+  .legal-document h1 {
+    font-size: 32px;
+  }
+
+  .legal-document h2 {
+    font-size: 20px;
+  }
+
+  .legal-document p {
+    font-size: 14px;
+  }
+
+}
+
+@media (max-width: 900px) {
+
+  .document-nav {
+    order: 0 !important;
+
+    width: auto !important;
+
+    margin-left: auto;
+
+    justify-content: flex-end !important;
+  }
+
+}

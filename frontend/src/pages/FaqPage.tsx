@@ -50,7 +50,7 @@ export default function FaqPage() {
           T-SHIRT
         </div>
 
-        <nav className="landing-nav">
+        <nav className="landing-nav legal-nav">
           <Link to="/">Главная</Link>
         </nav>
       </header>
