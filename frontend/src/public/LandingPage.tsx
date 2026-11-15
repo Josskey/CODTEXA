@@ -22,10 +22,16 @@ export default function LandingPage() {
       <header className="landing-header">
 
         <div className="landing-logo">
-          QR
-          <br />
-          T-SHIRT
-        </div>
+  <img
+    src="/favicon.svg"
+    alt="CODTEXA"
+    className="brand-logo"
+  />
+
+  <span className="brand-name">
+    CODTEXA
+  </span>
+</div>
 
         <nav className="landing-nav landing-nav-home">
   <a href="#about">О продукте</a>
@@ -59,7 +65,7 @@ export default function LandingPage() {
         <img
           src="/images/hero-shirt.png"
           className="hero-bg"
-          alt="QR T-Shirt"
+          alt="CODTEXA"
         />
 
         <div className="hero-content">
@@ -469,7 +475,7 @@ export default function LandingPage() {
 
   <img
     src="/images/QR.png"
-    alt="QR T-Shirt"
+    alt="CODTEXA"
   />
 
 </div>
@@ -508,9 +514,16 @@ export default function LandingPage() {
     <div className="footer-top">
 
       <div className="footer-brand">
-        <span>QR</span>
-        <span>T-SHIRT</span>
-      </div>
+  <img
+    src="/favicon.svg"
+    alt="CODTEXA"
+    className="brand-logo"
+  />
+
+  <span className="brand-name">
+    CODTEXA
+  </span>
+</div>
 
       <div className="footer-center">
 
