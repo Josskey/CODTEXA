@@ -517,11 +517,32 @@ router.put(
 
     const { url } = req.body;
 
-    if (!url) {
-      return res.status(400).json({
-        error: "Введите ссылку"
-      });
-    }
+if (!url) {
+  return res.status(400).json({
+    error: "Введите ссылку"
+  });
+}
+
+try {
+
+  const parsedUrl =
+    new URL(url);
+
+  if (
+    parsedUrl.protocol !== "https:" &&
+    parsedUrl.protocol !== "http:"
+  ) {
+    throw new Error();
+  }
+
+} catch {
+
+  return res.status(400).json({
+    error: "Некорректная ссылка"
+  });
+
+}
+
 
     await pool.query(
       `
@@ -647,6 +668,7 @@ router.get(
 );
 router.post(
   "/users/:id/block",
+  adminAuth,
   async (req, res) => {
 
     const { id } =
@@ -669,6 +691,7 @@ router.post(
 );
 router.post(
   "/users/:id/unblock",
+  adminAuth,
   async (req, res) => {
 
     const { id } =

@@ -2,7 +2,13 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET =
-  process.env.JWT_SECRET || "CHANGE_ME";
+  process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error(
+    "JWT_SECRET is not configured"
+  );
+}
 
 export interface AdminRequest extends Request {
   admin?: {
@@ -33,13 +39,13 @@ export function adminAuth(
   try {
 
     const payload = jwt.verify(
-      token,
-      JWT_SECRET
-    ) as {
-      aid: string;
-      email: string;
-      role: string;
-    };
+  token,
+  JWT_SECRET as string
+) as {
+  aid: string;
+  email: string;
+  role: string;
+};
 
     if (payload.role !== "admin") {
       return res.status(403).json({

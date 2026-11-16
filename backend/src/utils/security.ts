@@ -1,14 +1,20 @@
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET =
-  process.env.JWT_SECRET || "CHANGE_ME";
+  process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error(
+    "JWT_SECRET is not configured"
+  );
+}
 
 export function signJwt(payload: object) {
   return jwt.sign(
     payload,
-    JWT_SECRET,
+    JWT_SECRET as string,
     {
-      expiresIn: "30d",
+      expiresIn: "30d"
     }
   );
 }

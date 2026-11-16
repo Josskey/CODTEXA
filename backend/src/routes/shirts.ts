@@ -177,13 +177,33 @@ router.put(
       req.params;
 
     const { url } =
-      req.body;
+  req.body;
 
-    if (!url) {
-      return res.status(400).json({
-        error: "Введите ссылку"
-      });
-    }
+if (!url) {
+  return res.status(400).json({
+    error: "Введите ссылку"
+  });
+}
+
+try {
+
+  const parsedUrl =
+    new URL(url);
+
+  if (
+    parsedUrl.protocol !== "https:" &&
+    parsedUrl.protocol !== "http:"
+  ) {
+    throw new Error();
+  }
+
+} catch {
+
+  return res.status(400).json({
+    error: "Некорректная ссылка"
+  });
+
+}
 
     const ownerResult =
   await pool.query(

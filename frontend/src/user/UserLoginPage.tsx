@@ -36,13 +36,14 @@ export default function UserLoginPage() {
         "/my-shirts"
       );
 
-    } catch {
+    } catch (err: any) {
 
-      alert(
-        "Неверный логин или пароль"
-      );
+  alert(
+    err?.response?.data?.error ||
+    "Ошибка входа"
+  );
 
-    }
+}
 
   }
 

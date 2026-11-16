@@ -16,26 +16,33 @@ router.post("/register", async (req, res) => {
 
     const { email, password } = req.body;
 
-    if (
+if (
   !email ||
   !password
 ) {
-
   return res.status(400).json({
     error: "Введите email и пароль"
   });
+}
 
+const emailRegex =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (!emailRegex.test(email)) {
+  return res.status(400).json({
+    error: "Некорректный email"
+  });
 }
 
 if (
-  password.length < 6
+  password.length < 8
 ) {
-
+  
   return res.status(400).json({
     error:
-      "Пароль должен содержать минимум 6 символов"
-  });
-
+      "Пароль должен содержать минимум 8 символов"
+  })
+  ;
 }
 
     const passwordHash =
