@@ -10,7 +10,7 @@ import { initQrEffects } from "./effects.js";
 import { FaVk } from "react-icons/fa";
 export default function LandingPage() {
   useEffect(() => {
-  console.log("QR EFFECT STARTED");
+
 
   const cleanup = initQrEffects();
 
@@ -58,25 +58,26 @@ export default function LandingPage() {
 
       </header>
 
-      <section className="hero">
+      <section className="hero qrfx-hero">
 
         <div className="hero-overlay" />
 
         <img
-          src="/images/hero-shirt.png"
-          className="hero-bg"
-          alt="CODTEXA"
-        />
+  src="/images/hero-shirt.webp"
+  className="hero-bg"
+  alt="CODTEXA"
+  data-glitch
+/>
 
         <div className="hero-content">
 
-          <h1>
-            WEAR.
-            <br />
-            SCAN.
-            <br />
-            EXPLORE.
-          </h1>
+          <h1 data-glitch>
+  WEAR.
+  <br />
+  SCAN.
+  <br />
+  EXPLORE.
+</h1>
 
           <h2>
             Больше, чем просто футболка.
@@ -119,7 +120,7 @@ export default function LandingPage() {
         <div className="block-image">
 
           <img
-            src="/images/cta-placeholder.png"
+            src="/images/cta-placeholder.webp"
             alt=""
           />
 
@@ -420,7 +421,7 @@ export default function LandingPage() {
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/collector.png')"
+      backgroundImage: "url('/images/collector.webp')"
     }}
   >
     Коллекционеры
@@ -429,7 +430,7 @@ export default function LandingPage() {
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/blogger.png')"
+      backgroundImage: "url('/images/blogger.webp')"
     }}
   >
     Блогеры
@@ -438,7 +439,7 @@ export default function LandingPage() {
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/musician.png')"
+      backgroundImage: "url('/images/musician.webp')"
     }}
   >
     Музыканты
@@ -447,7 +448,7 @@ export default function LandingPage() {
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/spicer.png')"
+      backgroundImage: "url('/images/spicer.webp')"
     }}
   >
     Спикеры
@@ -456,7 +457,7 @@ export default function LandingPage() {
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/actor.png')"
+      backgroundImage: "url('/images/actor.webp')"
     }}
   >
     Модели
@@ -474,7 +475,7 @@ export default function LandingPage() {
   <div className="cta-image">
 
   <img
-    src="/images/QR.png"
+    src="/images/QR.webp"
     alt="CODTEXA"
   />
 

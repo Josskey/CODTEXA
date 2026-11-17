@@ -1,6 +1,6 @@
 /* =========================================================
-   CODTEXA — CODTEXA DIGITAL ATMOSPHERE
-   Independent visual layer. Does not change layout dimensions.
+   CODTEXA — DIGITAL ATMOSPHERE + REAL GLITCH SLICES
+   Glitch is opt-in and should be limited to the hero section.
    ========================================================= */
 
 :root {
@@ -9,7 +9,7 @@
   --qrfx-glow: rgba(220, 235, 255, 0.20);
 }
 
-/* Fixed effects layer */
+/* Existing ambient overlay */
 .qrfx-overlay {
   position: fixed;
   inset: 0;
@@ -28,56 +28,40 @@
   opacity: 0.72;
 }
 
-/* Very subtle scan beam */
+
 .qrfx-scanline {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
+  
   height: 6px;
-
+  
   opacity: 0;
 
   background: linear-gradient(
-  to bottom,
-  transparent,
-  rgba(255,255,255,.02),
-  rgba(255,255,255,.55),
-  rgba(255,255,255,.02),
-  transparent
-);
-
-
+    to bottom,
+    transparent,
+    rgba(255,255,255,.02),
+    rgba(255,255,255,.55),
+    rgba(255,255,255,.02),
+    transparent
+  );
   box-shadow:
-  0 0 5px rgba(255,255,255,.12),
-  0 0 10px rgba(220,235,255,.06),
-  0 0 20px rgba(220,235,255,.03);
-
+    0 0 5px rgba(255,255,255,.12),
+    0 0 10px rgba(220,235,255,.06),
+    0 0 20px rgba(220,235,255,.03);
   animation: qrfx-scan 22s linear infinite;
 }
 
 @keyframes qrfx-scan {
-  0% {
-    transform: translateY(105px);
-    opacity: 0;
-  }
-
-  0.5% {
-    opacity: .95;
-  }
-
-  95% {
-    transform: translateY(125vh);
-    opacity: .8;
-  }
-
-  100% {
-    transform: translateY(125vh);
-    opacity: 0;
-  }
+  0% { transform: translateY(105px); opacity: 0; }
+  0.5% { opacity: .95; }
+  95% { transform: translateY(125vh); opacity: .8; }
+  100% { transform: translateY(125vh); opacity: 0; }
 }
 
-/* Pixel fragments created by JS */
+
 .qrfx-pixel {
   position: absolute;
   display: block;
@@ -99,7 +83,7 @@
 }
 
 
-/* Soft light sweep over suitable cards/images on hover */
+
 .qrfx-hover-target {
   position: relative;
   isolation: isolate;
@@ -128,7 +112,7 @@
   transform: translateX(18%);
 }
 
-/* Scroll reveal — only activated on elements selected by JS */
+
 .qrfx-reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -143,7 +127,7 @@
   transform: translateY(0);
 }
 
-/* Optional subtle highlight for buttons */
+
 .qrfx-button {
   position: relative;
   overflow: hidden;
@@ -166,7 +150,84 @@
   transition: transform .75s ease, opacity .2s ease;
 }
 
-/* Respect accessibility preferences */
+html.qr-noise-enabled::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: screen;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 2px,
+      rgba(255,255,255,.04) 3px,
+      transparent 4px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 40px,
+      rgba(255,255,255,.025) 41px,
+      transparent 42px,
+      transparent 80px
+    );
+  background-size: 100% 100%;
+}
+
+.about,
+.split-section {
+  position: relative;
+}
+
+.about::before,
+.split-section::before {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  pointer-events: none;
+  border-radius: 24px;
+  box-shadow:
+    inset 2px 0 0 rgba(255,255,255,.18),
+    inset 0 2px 0 rgba(255,255,255,.18),
+    inset -2px 0 0 rgba(255,255,255,.18),
+    inset 0 -2px 0 rgba(255,255,255,.18);
+}
+
+/* =========================================================
+   REAL GLITCH SLICES
+   JS creates short-lived, fixed-position clones of the actual
+   heading/image and clips each clone to a horizontal band.
+   Original layout and element dimensions remain untouched.
+   ========================================================= */
+
+.qrfx-glitch-fragment {
+  position: fixed !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  z-index: 9999 !important;
+  transform: translate3d(0,0,0);
+  transform-origin: center;
+  will-change: transform, opacity, clip-path;
+  backface-visibility: hidden;
+  contain: layout style paint;
+}
+
+/* Slight chromatic edge, limited to the moving fragments */
+.qrfx-glitch-fragment.qrfx-glitch-cyan {
+  filter: drop-shadow(-2px 0 rgba(0, 220, 255, .48));
+}
+
+.qrfx-glitch-fragment.qrfx-glitch-red {
+  filter: drop-shadow(2px 0 rgba(255, 35, 65, .42));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .qrfx-scanline,
   .qrfx-pixel {
@@ -183,83 +244,23 @@
   .qrfx-button::before {
     transition: none;
   }
+
+  .qrfx-glitch-fragment {
+    display: none !important;
+    animation: none !important;
+  }
 }
 
-/* Keep the effects quiet on small screens */
+
 @media (max-width: 600px) {
   .qrfx-canvas { opacity: .42; }
   .qrfx-scanline { opacity: .45; }
   .qrfx-corner { width: 22px; height: 22px; }
-}
 
-.about,
-.split-section {
-  position: relative;
-}
-
-.about::before,
-.split-section::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 20px;
-
-  pointer-events: none;
-
-  border-radius: 24px;
-
-  box-shadow:
-    inset 2px 0 0 rgba(255,255,255,.18),
-    inset 0 2px 0 rgba(255,255,255,.18),
-    inset -2px 0 0 rgba(255,255,255,.18),
-    inset 0 -2px 0 rgba(255,255,255,.18);
-}
-@media (max-width: 600px) {
   .about::before,
   .split-section::before {
     inset: 8px;
     border-radius: 16px;
   }
+
 }
-
-/* ============================================
-   CODTEXA DIGITAL NOISE
-============================================ */
-
-html.qr-noise-enabled::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-
-  z-index: 4;
-  pointer-events: none;
-
-  opacity: 0.22;
-  mix-blend-mode: screen;
-
-  background-image:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0,
-      transparent 2px,
-      rgba(255,255,255,.04) 3px,
-      transparent 4px,
-      transparent 8px
-    ),
-
-    repeating-linear-gradient(
-      90deg,
-      transparent 0,
-      transparent 40px,
-      rgba(255,255,255,.025) 41px,
-      transparent 42px,
-      transparent 80px
-    );
-
-  background-size: 100% 100%;
-}
-
-
-
-
