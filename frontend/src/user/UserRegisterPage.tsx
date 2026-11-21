@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { http } from "../api/http";
 
 export default function UserRegisterPage() {
-
+ 
   const navigate =
     useNavigate();
 
@@ -15,9 +15,9 @@ export default function UserRegisterPage() {
     useState("");
 
   async function submit() {
-
+ 
     try {
-
+ 
       const res =
         await http.post(
           "/api/auth/register",
@@ -35,22 +35,22 @@ export default function UserRegisterPage() {
       navigate(
         "/my-shirts"
       );
-
+   
     } catch (err: any) {
-
+   
       alert(
         err?.response?.data?.error ||
         "Ошибка регистрации"
       );
-
+   
     }
-
+  
   }
 
   return (
-
+    
     <div className="auth-container">
-
+    
       <div className="auth-card">
 
         <h1 className="auth-title">
@@ -86,6 +86,32 @@ export default function UserRegisterPage() {
         <br />
         <br />
 
+        <div className="register-legal">
+          Регистрируясь, вы принимаете{" "}
+
+          <a
+            href="/legal/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="register-link"
+          >
+            Пользовательское соглашение
+          </a>
+
+          {" "}и{" "}
+
+          <a
+            href="/legal/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="register-link"
+          >
+            даёте согласие на обработку персональных данных.
+          </a>
+        </div>
+
+        <br />
+
         <button
           className="primary-button"
           onClick={submit}
@@ -96,7 +122,7 @@ export default function UserRegisterPage() {
       </div>
 
     </div>
-
-  );
+  
+);
 
 }
