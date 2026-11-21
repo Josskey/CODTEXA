@@ -57,6 +57,31 @@
   font-size: 18px;
 }
 
+.legal-document ul {
+  color: rgba(255,255,255,.8);
+  line-height: 1.8;
+  font-size: 18px;
+
+  padding-left: 28px;
+  margin: 16px 0;
+}
+
+.legal-document li {
+  margin-bottom: 8px;
+}
+
+.legal-document strong {
+  color: white;
+}
+
+.legal-document a {
+  color: #7cb0ff;
+}
+
+.legal-document a:hover {
+  text-decoration: underline;
+}
+
 /* =========================== 900 =========================== */
 
 @media (max-width: 900px) {
@@ -96,6 +121,10 @@
     font-size: 17px;
   }
 
+  .legal-document ul {
+ font-size: 17px;
+}
+
 }
 
 /* =========================== 600 =========================== */
@@ -134,6 +163,10 @@
     line-height: 1.7;
   }
 
+  .legal-document ul {
+ font-size: 17px;
+}
+
 }
 
 /* =========================== 500 =========================== */
@@ -157,6 +190,10 @@
     font-size: 15px;
   }
 
+  .legal-document ul {
+ font-size: 17px;
+}
+
 }
 
 /* =========================== 400 =========================== */
@@ -179,6 +216,10 @@
     font-size: 14px;
   }
 
+  .legal-document ul {
+ font-size: 17px;
+}
+
 }
 
 @media (max-width: 900px) {
@@ -193,4 +234,35 @@
     justify-content: flex-end !important;
   }
 
+}
+.legal-text-block {
+  white-space: pre-wrap;
+  color: rgba(255,255,255,.8);
+  line-height: 1.8;
+  font-size: 18px;
+}
+
+@media (max-width: 700px) {
+  .legal-text-block {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 600px) {
+  .legal-text-block {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 500px) {
+  .legal-text-block {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .legal-text-block {
+    font-size: 14px;
+  }
 }

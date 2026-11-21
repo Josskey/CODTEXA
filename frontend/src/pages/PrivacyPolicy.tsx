@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import privacyText from "./docs/privacy-policy.txt?raw";
+
 import "../public/LandingPage.css";
 import "./LegalDocument.css";
 
@@ -9,16 +11,14 @@ export default function PrivacyPolicy() {
       <header className="landing-header">
 
         <div className="landing-logo">
-          QR
-          <br />
-          T-SHIRT
+          CODTEXA
         </div>
 
         <nav className="landing-nav document-nav">
-  <Link to="/legal">
-    ← Все документы
-  </Link>
-</nav>
+          <Link to="/legal">
+            ← Все документы
+          </Link>
+        </nav>
 
       </header>
 
@@ -29,49 +29,18 @@ export default function PrivacyPolicy() {
         </span>
 
         <h1>
-          Политика конфиденциальности
+          Политика обработки персональных данных
         </h1>
 
         <p className="document-date">
-          Последнее обновление: 11.11.2026
+          Дата публикации: [указать дату]
         </p>
 
-        <section>
-
-          <h2>1. Общие положения</h2>
-
-          <p>
-            Настоящая Политика конфиденциальности
-            регулирует обработку персональных данных
-            пользователей платформы CODTEXA.
-          </p>
-
-        </section>
-
-        <section>
-
-          <h2>2. Персональные данные</h2>
-
-          <p>
-            Сервис может обрабатывать данные,
-            предоставленные пользователем при
-            регистрации, активации изделия
-            и использовании платформы.
-          </p>
-
-        </section>
-
-        <section>
-
-          <h2>3. Хранение информации</h2>
-
-          <p>
-            Данные хранятся в объёме,
-            необходимом для предоставления
-            функциональности платформы.
-          </p>
-
-        </section>
+        <div
+          className="legal-text-block"
+        >
+          {privacyText}
+        </div>
 
       </main>
 

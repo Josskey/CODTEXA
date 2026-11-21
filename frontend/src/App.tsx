@@ -33,7 +33,6 @@ import LandingPage from "./public/LandingPage";
 import LegalPage from "./pages/LegalPage";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsPage from "./pages/TermsPage";
-import PersonalDataPage from "./pages/PersonalDataPage";
 import OfferPage from "./pages/OfferPage";
 import CookiesPage from "./pages/CookiesPage";
 import FaqPage from "./pages/FaqPage";
@@ -62,11 +61,6 @@ export default function App() {
 <Route
   path="/legal/terms"
   element={<TermsPage />}
-/>
-
-<Route
-  path="/legal/personal-data"
-  element={<PersonalDataPage />}
 />
 
 <Route

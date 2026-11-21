@@ -8,7 +8,7 @@ export default function LegalPage() {
     {
       id: "privacy",
       icon: "/icons/ShieldCheck.svg",
-      title: "Политика конфиденциальности",
+      title: "Политика обработки персональных данных",
       path: "/legal/privacy",
     },
     {
@@ -16,12 +16,6 @@ export default function LegalPage() {
       icon: "/icons/FileText.svg",
       title: "Пользовательское соглашение",
       path: "/legal/terms",
-    },
-    {
-      id: "personal",
-      icon: "/icons/BadgeCheck.svg",
-      title: "Согласие на обработку данных",
-      path: "/legal/personal-data",
     },
     {
       id: "offer",
