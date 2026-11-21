@@ -62,12 +62,17 @@ export default function LandingPage() {
 
         <div className="hero-overlay" />
 
-        <img
+        
+<img
   src="/images/hero-shirt.webp"
   className="hero-bg"
   alt="CODTEXA"
+  fetchPriority="high"
+  loading="eager"
+  decoding="async"
   data-glitch
 />
+
 
         <div className="hero-content">
 
