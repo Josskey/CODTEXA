@@ -4,17 +4,25 @@ import { Link } from "react-router-dom";
 import "./LandingPage.css";
 import "./effects.css";
 
-// @ts-ignore
-import { initQrEffects } from "./effects.js";
+
 
 import { FaVk } from "react-icons/fa";
 export default function LandingPage() {
   useEffect(() => {
+  let cancelled = false;
+  let cleanup: (() => void) | undefined;
 
+  // @ts-ignore
+  import("./effects.js").then(({ initQrEffects }) => {
+    if (cancelled) return;
 
-  const cleanup = initQrEffects();
+    cleanup = initQrEffects();
+  });
 
-  return cleanup;
+  return () => {
+    cancelled = true;
+    cleanup?.();
+  };
 }, []);
   return (
     <div className="landing">
@@ -57,7 +65,7 @@ export default function LandingPage() {
         </div>
 
       </header>
-
+<main> 
       <section className="hero qrfx-hero">
 
         <div className="hero-overlay" />
@@ -125,10 +133,23 @@ export default function LandingPage() {
         <div className="block-image">
 
           <img
-            src="/images/cta-placeholder.webp"
-            alt=""
-          />
-
+  src="/images/cta-placeholder-750-optimized.webp"
+  srcSet="
+    /images/cta-placeholder-450-optimized.webp 450w,
+    /images/cta-placeholder-750-optimized.webp 750w,
+    /images/cta-placeholder-900-optimized.webp 900w
+  "
+  sizes="
+    (max-width: 600px) calc(100vw - 40px),
+    (max-width: 900px) calc(100vw - 60px),
+    (max-width: 1200px) calc((100vw - 100px) / 2),
+    (max-width: 1600px) calc((100vw - 10vw - 120px) / 2),
+    720px
+  "
+  alt=""
+  loading="lazy"
+  decoding="async"
+/>
         </div>
 
         <div className="block-content">
@@ -480,8 +501,20 @@ export default function LandingPage() {
   <div className="cta-image">
 
   <img
-    src="/images/QR.webp"
+    src="/images/QR-760.webp"
+    srcSet="
+      /images/QR-380.webp 380w,
+      /images/QR-760.webp 760w
+    "
+    sizes="
+      (max-width: 600px) calc(100vw - 32px),
+      (max-width: 900px) calc((100vw - 80px) / 2),
+      (max-width: 1600px) calc((100vw - 80px) * 0.405),
+      648px
+    "
     alt="CODTEXA"
+    loading="lazy"
+    decoding="async"
   />
 
 </div>
@@ -513,7 +546,7 @@ export default function LandingPage() {
   </div>
 
 </section>
-
+</main>
       <footer id="contacts" className="footer">
   <div className="footer-inner">
 
@@ -550,13 +583,14 @@ export default function LandingPage() {
       <div className="footer-socials">
 
         <a
-          href="https://vk.ru/codtexa"
-          target="_blank"
-          rel="noreferrer"
-          className="vk-link"
-        >
-          <FaVk />
-        </a>
+  href="https://vk.ru/codtexa"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="vk-link"
+  aria-label="CODTEXA во ВКонтакте"
+>
+  <FaVk />
+</a>
 
       </div>
 

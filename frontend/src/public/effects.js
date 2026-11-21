@@ -1,22 +1,6 @@
+
 /**
- * CODTEXA — DIGITAL ATMOSPHERE + REAL GLITCH SLICES
- *
- * React:
- *   import { useEffect } from "react";
- *   import "./qr-effects.css";
- *   import { initQrEffects } from "./qr-effects.js";
- *
- *   useEffect(() => initQrEffects(), []);
- *
- * Mark the hero wrapper with .qrfx-hero.
- * The script automatically targets its first h1 and first visible image.
- * For exact control, add data-glitch to the heading/image you want animated.
- *
- * Example:
- *   <section className="hero qrfx-hero">
- *     <h1 data-glitch>WEAR. SCAN. EXPLORE.</h1>
- *     <img data-glitch src="/model.webp" alt="" />
- *   </section>
+ * CODTEXA — OPTIMIZED DIGITAL ATMOSPHERE + REAL GLITCH SLICES
  */
 
 export function initQrEffects(options = {}) {
@@ -24,7 +8,6 @@ export function initQrEffects(options = {}) {
     return () => {};
   }
 
-  // Avoid duplicate overlays/effects during React StrictMode remounts.
   document.querySelector(".qrfx-overlay")?.remove();
 
   const settings = {
@@ -33,7 +16,6 @@ export function initQrEffects(options = {}) {
     reveal: true,
     hover: true,
 
-    // Glitch settings
     glitch: true,
     glitchSelector: ".qrfx-hero",
     glitchMinDelay: 4200,
@@ -44,12 +26,16 @@ export function initQrEffects(options = {}) {
     glitchDuration: 230,
     glitchMobile: true,
 
+    // Performance
+    fps: 30,
+    desktopRainCount: 260,
+    mobileRainCount: 140,
+
     ...options,
   };
 
-  const reducedMotion = window.matchMedia?.(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
+  const reducedMotion =
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 
   const overlay = document.createElement("div");
   overlay.className = "qrfx-overlay";
@@ -87,6 +73,7 @@ export function initQrEffects(options = {}) {
         "--qrfx-opacity",
         `${0.08 + Math.random() * 0.22}`
       );
+
       overlay.appendChild(pixel);
     }
   }
@@ -95,19 +82,29 @@ export function initQrEffects(options = {}) {
   document.documentElement.classList.add("qr-noise-enabled");
 
   const ctx = canvas.getContext("2d");
+
   let width = 0;
   let height = 0;
   let rafId = 0;
+  let resizeRaf = 0;
   let active = true;
-  let glitchTimer = 0;
+  let lastFrame = 0;
+  let glitchTimer = null;
+
   const activeGlitchAnimations = new Set();
+  const fragmentTimers = new Set();
+
+  const frameInterval = 1000 / Math.max(1, settings.fps);
 
   function drawFinder(x, y, cell) {
     if (!ctx) return;
+
     ctx.strokeStyle = "rgba(235,242,255,.10)";
     ctx.lineWidth = 1;
+
     ctx.strokeRect(x, y, cell * 5, cell * 5);
     ctx.strokeRect(x + cell, y + cell, cell * 3, cell * 3);
+
     ctx.fillStyle = "rgba(235,242,255,.07)";
     ctx.fillRect(x + cell * 2, y + cell * 2, cell, cell);
   }
@@ -116,48 +113,73 @@ export function initQrEffects(options = {}) {
 
   function createRainLines() {
     rainLines = [];
-    const count = width > 768 ? 600 : 300;
+
+    const count = width > 768
+      ? settings.desktopRainCount
+      : settings.mobileRainCount;
 
     for (let i = 0; i < count; i += 1) {
+      const alpha = 0.015 + Math.random() * 0.04;
+
       rainLines.push({
         x: Math.random() * width,
         y: Math.random() * height,
         length: 40 + Math.random() * 260,
         speed: 0.03 + Math.random() * 0.15,
-        alpha: 0.015 + Math.random() * 0.04,
-        lineWidth: 1,
+        bucket: Math.min(3, Math.floor((alpha - 0.015) / 0.01)),
       });
     }
   }
 
-  function drawDigitalRain() {
+  // Объединяем линии с близкой прозрачностью в общие Canvas-пути.
+  // Вместо сотен отдельных stroke() выполняется всего четыре.
+  function drawDigitalRain(deltaTime = 16.67) {
     if (!ctx) return;
 
-    rainLines.forEach((line) => {
-      ctx.beginPath();
-      ctx.strokeStyle = `rgba(255,255,255,${line.alpha})`;
-      ctx.lineWidth = line.lineWidth;
-      ctx.moveTo(line.x, line.y);
-      ctx.lineTo(line.x, line.y + line.length);
-      ctx.stroke();
+    const groups = [[], [], [], []];
 
-      line.y += line.speed;
+    const movement = Math.min(deltaTime, 50) / 16.67;
+
+    rainLines.forEach((line) => {
+      groups[line.bucket].push(line);
+
+      line.y += line.speed * movement;
 
       if (line.y > height + line.length) {
         line.y = -line.length;
         line.x = Math.random() * width;
         line.length = 40 + Math.random() * 260;
-        line.alpha = 0.015 + Math.random() * 0.04;
         line.speed = 0.03 + Math.random() * 0.15;
       }
     });
+
+    for (let i = 0; i < groups.length; i += 1) {
+      const group = groups[i];
+
+      if (!group.length) continue;
+
+      ctx.beginPath();
+
+      group.forEach((line) => {
+        ctx.moveTo(line.x, line.y);
+        ctx.lineTo(line.x, line.y + line.length);
+      });
+
+      const alpha = 0.015 + i * 0.01;
+
+      ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
   }
 
-  function drawGrid() {
+  function drawGrid(deltaTime = 16.67) {
     if (!ctx || !active) return;
 
     ctx.clearRect(0, 0, width, height);
+
     const cell = 9;
+
     const regions = [
       { x: 18, y: height * 0.18, cols: 8, rows: 10 },
       { x: width - 18 - cell * 8, y: height * 0.56, cols: 8, rows: 10 },
@@ -167,6 +189,7 @@ export function initQrEffects(options = {}) {
       for (let row = 0; row < region.rows; row += 1) {
         for (let col = 0; col < region.cols; col += 1) {
           const value = (row * 13 + col * 7 + regionIndex * 11) % 5;
+
           if (value > 1) continue;
 
           ctx.fillStyle = value === 0
@@ -185,39 +208,90 @@ export function initQrEffects(options = {}) {
 
     drawFinder(22, height * 0.18 + 104, 5);
     drawFinder(width - 47, height * 0.56 - 58, 5);
-    drawDigitalRain();
+
+    drawDigitalRain(deltaTime);
   }
 
   function resizeCanvas() {
+    if (!active) return;
+
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+
     width = window.innerWidth;
     height = window.innerHeight;
+
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
+
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
+
     ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
+
     createRainLines();
     drawGrid();
   }
 
-  function animate() {
-    if (!active || reducedMotion) return;
-    drawGrid();
+  function scheduleResize() {
+    if (resizeRaf) return;
+
+    resizeRaf = window.requestAnimationFrame(() => {
+      resizeRaf = 0;
+      resizeCanvas();
+    });
+  }
+
+  function stopCanvas() {
+    if (rafId) {
+      window.cancelAnimationFrame(rafId);
+      rafId = 0;
+    }
+
+    lastFrame = 0;
+  }
+
+  function animate(timestamp) {
+    if (!active || reducedMotion || document.hidden) {
+      rafId = 0;
+      return;
+    }
+
+    if (!lastFrame || timestamp - lastFrame >= frameInterval) {
+      const deltaTime = lastFrame
+        ? timestamp - lastFrame
+        : 16.67;
+
+      drawGrid(deltaTime);
+      lastFrame = timestamp;
+    }
+
+    rafId = window.requestAnimationFrame(animate);
+  }
+
+  function startCanvas() {
+    if (!active || reducedMotion || document.hidden || rafId) return;
+
+    lastFrame = 0;
     rafId = window.requestAnimationFrame(animate);
   }
 
   resizeCanvas();
-  window.addEventListener("resize", resizeCanvas, { passive: true });
+
+  window.addEventListener("resize", scheduleResize, { passive: true });
 
   if (!reducedMotion) {
-    rafId = window.requestAnimationFrame(animate);
-    window.requestAnimationFrame(() => overlay.classList.add("qrfx-active"));
+    startCanvas();
+
+    if (!document.hidden) {
+      window.requestAnimationFrame(() => {
+        if (active) overlay.classList.add("qrfx-active");
+      });
+    }
   } else {
     overlay.classList.add("qrfx-active");
   }
 
-  // Scroll reveal — kept as in the original implementation.
+  // Scroll reveal
   const revealTargets = [];
 
   if (settings.reveal) {
@@ -234,8 +308,10 @@ export function initQrEffects(options = {}) {
 
     document.querySelectorAll(selectors.join(",")).forEach((el) => {
       if (el.dataset.qrfxReveal === "true") return;
+
       el.dataset.qrfxReveal = "true";
       el.classList.add("qrfx-reveal");
+
       revealTargets.push(el);
     });
   }
@@ -257,7 +333,7 @@ export function initQrEffects(options = {}) {
     revealTargets.forEach((el) => el.classList.add("qrfx-visible"));
   }
 
-  // Hover highlights — unchanged in scope.
+  // Hover highlights
   const hoverTargets = [];
 
   if (settings.hover && !reducedMotion) {
@@ -265,18 +341,18 @@ export function initQrEffects(options = {}) {
       "a, button, [class*='card'], [class*='step'], .feature, .audience-card"
     ).forEach((el) => {
       if (el.closest(".qrfx-overlay")) return;
+
       el.classList.add("qrfx-hover-target");
-      if (el.matches("a, button")) el.classList.add("qrfx-button");
+
+      if (el.matches("a, button")) {
+        el.classList.add("qrfx-button");
+      }
+
       hoverTargets.push(el);
     });
   }
 
-  /* =======================================================
-     GLITCH ENGINE
-     It clones the real target for a few milliseconds, clips
-     the clones into horizontal slices, and offsets them.
-     The original node is never moved or resized.
-     ======================================================= */
+  // GLITCH ENGINE
 
   function randomBetween(min, max) {
     return min + Math.random() * (max - min);
@@ -284,9 +360,11 @@ export function initQrEffects(options = {}) {
 
   function getGlitchTargets() {
     const hero = document.querySelector(settings.glitchSelector);
+
     if (!hero) return [];
 
     const explicitlyMarked = [...hero.querySelectorAll("[data-glitch]")];
+
     if (explicitlyMarked.length) return explicitlyMarked;
 
     const targets = [];
@@ -301,11 +379,12 @@ export function initQrEffects(options = {}) {
 
   function makeFragment(target, rect, topPercent, bottomPercent, shift, className) {
     const fragment = target.cloneNode(true);
+    const style = getComputedStyle(target);
+
     fragment.classList.add("qrfx-glitch-fragment", className);
     fragment.removeAttribute?.("id");
     fragment.setAttribute?.("aria-hidden", "true");
 
-    // Fixed coordinates let us preserve the original layout exactly.
     Object.assign(fragment.style, {
       position: "fixed",
       left: `${rect.left}px`,
@@ -317,26 +396,25 @@ export function initQrEffects(options = {}) {
       minWidth: "0",
       minHeight: "0",
       margin: "0",
-      padding: getComputedStyle(target).padding,
-      border: getComputedStyle(target).border,
-      borderRadius: getComputedStyle(target).borderRadius,
+      padding: style.padding,
+      border: style.border,
+      borderRadius: style.borderRadius,
       boxSizing: "border-box",
       overflow: "hidden",
-      objectFit: getComputedStyle(target).objectFit,
-      objectPosition: getComputedStyle(target).objectPosition,
-      font: getComputedStyle(target).font,
-      lineHeight: getComputedStyle(target).lineHeight,
-      letterSpacing: getComputedStyle(target).letterSpacing,
-      textAlign: getComputedStyle(target).textAlign,
-      color: getComputedStyle(target).color,
-      background: getComputedStyle(target).background,
+      objectFit: style.objectFit,
+      objectPosition: style.objectPosition,
+      font: style.font,
+      lineHeight: style.lineHeight,
+      letterSpacing: style.letterSpacing,
+      textAlign: style.textAlign,
+      color: style.color,
+      background: style.background,
       opacity: "1",
       clipPath: `inset(${topPercent}% 0 ${100 - bottomPercent}% 0)`,
       webkitClipPath: `inset(${topPercent}% 0 ${100 - bottomPercent}% 0)`,
       transform: `translate3d(${shift}px, 0, 0)`,
     });
 
-    // Keep image fragments pixel-aligned with the source.
     if (target instanceof HTMLImageElement) {
       fragment.src = target.currentSrc || target.src;
       fragment.srcset = "";
@@ -344,13 +422,29 @@ export function initQrEffects(options = {}) {
     }
 
     document.body.appendChild(fragment);
+
     return fragment;
   }
 
+  function clearGlitchFragments() {
+    activeGlitchAnimations.forEach((animation) => animation.cancel());
+    activeGlitchAnimations.clear();
+
+    fragmentTimers.forEach((timer) => window.clearTimeout(timer));
+    fragmentTimers.clear();
+
+    document.querySelectorAll(".qrfx-glitch-fragment").forEach((el) => {
+      el.remove();
+    });
+  }
+
   function glitchTarget(target) {
-    if (!active || reducedMotion || !target?.isConnected) return;
+    if (!active || reducedMotion || document.hidden || !target?.isConnected) {
+      return;
+    }
 
     const rect = target.getBoundingClientRect();
+
     if (rect.width < 2 || rect.height < 2) return;
     if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
@@ -358,15 +452,17 @@ export function initQrEffects(options = {}) {
       settings.glitchSlicesMin,
       settings.glitchSlicesMax
     ));
+
     const fragments = [];
-    const totalHeight = 100;
-    const sliceHeight = totalHeight / sliceCount;
+    const sliceHeight = 100 / sliceCount;
 
     for (let i = 0; i < sliceCount; i += 1) {
       const top = i * sliceHeight;
       const bottom = (i + 1) * sliceHeight;
+
       const direction = Math.random() < 0.5 ? -1 : 1;
       const shift = direction * randomBetween(5, settings.glitchMaxShift);
+
       const colorClass = Math.random() < 0.5
         ? "qrfx-glitch-cyan"
         : "qrfx-glitch-red";
@@ -385,13 +481,21 @@ export function initQrEffects(options = {}) {
       if (typeof fragment.animate === "function") {
         const animation = fragment.animate(
           [
-            { transform: `translate3d(${shift}px, 0, 0)`, opacity: 1, offset: 0 },
+            {
+              transform: `translate3d(${shift}px, 0, 0)`,
+              opacity: 1,
+              offset: 0,
+            },
             {
               transform: `translate3d(${shift * 0.45}px, ${randomBetween(-1, 1)}px, 0)`,
               opacity: 0.96,
               offset: 0.38,
             },
-            { transform: "translate3d(0, 0, 0)", opacity: 0, offset: 1 },
+            {
+              transform: "translate3d(0, 0, 0)",
+              opacity: 0,
+              offset: 1,
+            },
           ],
           {
             duration: settings.glitchDuration + randomBetween(-45, 55),
@@ -401,18 +505,44 @@ export function initQrEffects(options = {}) {
         );
 
         activeGlitchAnimations.add(animation);
-        animation.onfinish = () => activeGlitchAnimations.delete(animation);
+
+        animation.onfinish = () => {
+          activeGlitchAnimations.delete(animation);
+        };
+
+        animation.oncancel = () => {
+          activeGlitchAnimations.delete(animation);
+        };
       }
     }
 
-    // Remove the temporary copies after the glitch burst.
-    window.setTimeout(() => {
+    const timer = window.setTimeout(() => {
       fragments.forEach((fragment) => fragment.remove());
+      fragmentTimers.delete(timer);
     }, settings.glitchDuration + 180);
+
+    fragmentTimers.add(timer);
+  }
+
+  function scheduleNextGlitch() {
+    if (!active || reducedMotion || !settings.glitch || document.hidden) {
+      return;
+    }
+
+    const delay = randomBetween(
+      settings.glitchMinDelay,
+      settings.glitchMaxDelay
+    );
+
+    glitchTimer = window.setTimeout(runGlitchBurst, delay);
   }
 
   function runGlitchBurst() {
-    if (!active || reducedMotion || !settings.glitch) return;
+    glitchTimer = null;
+
+    if (!active || reducedMotion || !settings.glitch || document.hidden) {
+      return;
+    }
 
     if (!settings.glitchMobile && window.innerWidth <= 600) {
       scheduleNextGlitch();
@@ -425,28 +555,42 @@ export function initQrEffects(options = {}) {
     });
 
     if (targets.length) {
-      // Often glitch the title and photo together, but occasionally only one.
       const burstTargets = Math.random() < 0.72
         ? targets
         : [targets[Math.floor(Math.random() * targets.length)]];
 
-      burstTargets.forEach((target) => glitchTarget(target));
+      burstTargets.forEach(glitchTarget);
     }
 
     scheduleNextGlitch();
   }
 
-  function scheduleNextGlitch() {
-    if (!active || reducedMotion || !settings.glitch) return;
-    const delay = randomBetween(
-      settings.glitchMinDelay,
-      settings.glitchMaxDelay
-    );
-    glitchTimer = window.setTimeout(runGlitchBurst, delay);
+  function pauseGlitch() {
+    if (glitchTimer !== null) {
+      window.clearTimeout(glitchTimer);
+      glitchTimer = null;
+    }
+
+    clearGlitchFragments();
   }
 
-  if (settings.glitch && !reducedMotion) {
-    // Short initial pause so the page finishes loading before the first burst.
+  function handleVisibilityChange() {
+    if (document.hidden) {
+      stopCanvas();
+      pauseGlitch();
+      return;
+    }
+
+    startCanvas();
+
+    if (settings.glitch && !reducedMotion) {
+      scheduleNextGlitch();
+    }
+  }
+
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  if (settings.glitch && !reducedMotion && !document.hidden) {
     glitchTimer = window.setTimeout(
       runGlitchBurst,
       randomBetween(1400, 2600)
@@ -456,13 +600,23 @@ export function initQrEffects(options = {}) {
   return function cleanupQrEffects() {
     active = false;
 
-    if (rafId) window.cancelAnimationFrame(rafId);
-    if (glitchTimer) window.clearTimeout(glitchTimer);
+    stopCanvas();
 
-    activeGlitchAnimations.forEach((animation) => animation.cancel());
-    activeGlitchAnimations.clear();
+    if (resizeRaf) {
+      window.cancelAnimationFrame(resizeRaf);
+      resizeRaf = 0;
+    }
 
-    window.removeEventListener("resize", resizeCanvas);
+    if (glitchTimer !== null) {
+      window.clearTimeout(glitchTimer);
+      glitchTimer = null;
+    }
+
+    clearGlitchFragments();
+
+    window.removeEventListener("resize", scheduleResize);
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+
     observer?.disconnect();
 
     revealTargets.forEach((el) => {
@@ -474,7 +628,6 @@ export function initQrEffects(options = {}) {
       el.classList.remove("qrfx-hover-target", "qrfx-button");
     });
 
-    document.querySelectorAll(".qrfx-glitch-fragment").forEach((el) => el.remove());
     overlay.remove();
     document.documentElement.classList.remove("qr-noise-enabled");
   };

@@ -1,190 +1,192 @@
-import { Routes, Route, Navigate } from "react-router-dom";
 
-import LoginPage from "./admin/LoginPage";
-import ProtectedRoute from "./admin/ProtectedRoute";
+import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import AdminLayout from "./admin/AdminLayout";
-import DashboardPage from "./admin/DashboardPage";
-
-import UsersPage from "./admin/UsersPage";
-import UserDetailsPage from "./admin/UserDetailsPage";
-
-import ShirtsPage from "./admin/ShirtsPage";
-import ShirtDetailsPage from "./admin/ShirtDetailsPage";
-
-import BatchesPage from "./admin/BatchesPage";
-import BatchDetailsPage from "./admin/BatchDetailsPage";
-
-import UserLoginPage from "./user/UserLoginPage";
-import UserRegisterPage from "./user/UserRegisterPage";
-
-import UserProtectedRoute from "./user/UserProtectedRoute";
-import MyShirtsPage from "./user/MyShirtsPage";
-
-import ClaimShirtPage from "./user/ClaimShirtPage";
-import UserShirtPage from "./user/UserShirtPage";
-
-import ProfilePage from "./user/ProfilePage";
-import UserLayout from "./user/UserLayout";
-
-import ActivateInfoPage from "./user/ActivateInfoPage";
+// Главная — загружаем сразу для максимально быстрой первой отрисовки
 import LandingPage from "./public/LandingPage";
 
-import LegalPage from "./pages/LegalPage";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsPage from "./pages/TermsPage";
-import OfferPage from "./pages/OfferPage";
-import CookiesPage from "./pages/CookiesPage";
-import FaqPage from "./pages/FaqPage";
+// Защитные компоненты — оставляем обычными импортами
+
+const ProtectedRoute = lazy(() => import("./admin/ProtectedRoute"));
+const UserProtectedRoute = lazy(() => import("./user/UserProtectedRoute"));
+
+// Остальные страницы загружаются только при переходе на них
+const LoginPage = lazy(() => import("./admin/LoginPage"));
+
+const AdminLayout = lazy(() => import("./admin/AdminLayout"));
+const DashboardPage = lazy(() => import("./admin/DashboardPage"));
+
+const UsersPage = lazy(() => import("./admin/UsersPage"));
+const UserDetailsPage = lazy(() => import("./admin/UserDetailsPage"));
+
+const ShirtsPage = lazy(() => import("./admin/ShirtsPage"));
+const ShirtDetailsPage = lazy(() => import("./admin/ShirtDetailsPage"));
+
+const BatchesPage = lazy(() => import("./admin/BatchesPage"));
+const BatchDetailsPage = lazy(() => import("./admin/BatchDetailsPage"));
+
+const UserLoginPage = lazy(() => import("./user/UserLoginPage"));
+const UserRegisterPage = lazy(() => import("./user/UserRegisterPage"));
+
+const MyShirtsPage = lazy(() => import("./user/MyShirtsPage"));
+const ClaimShirtPage = lazy(() => import("./user/ClaimShirtPage"));
+const UserShirtPage = lazy(() => import("./user/UserShirtPage"));
+
+const ProfilePage = lazy(() => import("./user/ProfilePage"));
+const UserLayout = lazy(() => import("./user/UserLayout"));
+
+const ActivateInfoPage = lazy(() => import("./user/ActivateInfoPage"));
+
+// Юридические страницы и FAQ
+const LegalPage = lazy(() => import("./pages/LegalPage"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsPage = lazy(() => import("./pages/TermsPage"));
+const OfferPage = lazy(() => import("./pages/OfferPage"));
+const CookiesPage = lazy(() => import("./pages/CookiesPage"));
+const FaqPage = lazy(() => import("./pages/FaqPage"));
 
 export default function App() {
-
+  
   return (
+    <Suspense fallback={null}>
+      <Routes>
 
-    <Routes>
-
-      <Route
-        path="/"
-        element={<LandingPage />}
-        
-      />
-    <Route
-        path="/legal"
-        element={<LegalPage />}
-      />
-
-      <Route
-  path="/legal/privacy"
-  element={<PrivacyPolicy />}
-/>
-
-<Route
-  path="/legal/terms"
-  element={<TermsPage />}
-/>
-
-<Route
-  path="/legal/offer"
-  element={<OfferPage />}
-/>
-
-<Route
-  path="/legal/cookies"
-  element={<CookiesPage />}
-/>
-
-<Route
-  path="/faq"
-  element={<FaqPage />}
-/>
-      
-      {/* Admin Login */}
-
-      <Route
-        path="/adm/login"
-        element={<LoginPage />}
-      />
-
-      {/* User Login */}
-
-      <Route
-        path="/login"
-        element={<UserLoginPage />}
-      />
-
-      {/* User Register */}
-
-      <Route
-        path="/register"
-        element={<UserRegisterPage />}
-      />
-<Route
-  path="/activate-info"
-  element={<ActivateInfoPage />}
-/>
-
-      {/* User Area */}
-
-      <Route
-  element={
-    <UserProtectedRoute>
-      <UserLayout />
-    </UserProtectedRoute>
-  }
->
-
-  <Route
-    path="/my-shirts"
-    element={<MyShirtsPage />}
-  />
-
-  <Route
-    path="/my-shirts/:publicId"
-    element={<UserShirtPage />}
-  />
-
-  <Route
-    path="/profile"
-    element={<ProfilePage />}
-  />
-
-  <Route
-    path="/claim"
-    element={<ClaimShirtPage />}
-  />
-
-</Route>
-
-      {/* Admin Area */}
-
-      <Route
-        path="/adm"
-        element={
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-
+        {/* Главная */}
         <Route
-          path="dashboard"
-          element={<DashboardPage />}
+          path="/"
+          element={<LandingPage />}
+        />
+
+        {/* Юридические страницы */}
+        <Route
+          path="/legal"
+          element={<LegalPage />}
         />
 
         <Route
-          path="users"
-          element={<UsersPage />}
+          path="/legal/privacy"
+          element={<PrivacyPolicy />}
         />
 
         <Route
-          path="users/:id"
-          element={<UserDetailsPage />}
+          path="/legal/terms"
+          element={<TermsPage />}
         />
 
         <Route
-          path="shirts"
-          element={<ShirtsPage />}
+          path="/legal/offer"
+          element={<OfferPage />}
         />
 
         <Route
-          path="shirts/:id"
-          element={<ShirtDetailsPage />}
+          path="/legal/cookies"
+          element={<CookiesPage />}
+        />
+
+        {/* FAQ */}
+        <Route
+          path="/faq"
+          element={<FaqPage />}
+        />
+
+        {/* Вход администратора */}
+        <Route
+          path="/adm/login"
+          element={<LoginPage />}
+        />
+
+        {/* Авторизация пользователя */}
+        <Route
+          path="/login"
+          element={<UserLoginPage />}
         />
 
         <Route
-          path="batches"
-          element={<BatchesPage />}
+          path="/register"
+          element={<UserRegisterPage />}
         />
 
         <Route
-          path="batches/:id"
-          element={<BatchDetailsPage />}
+          path="/activate-info"
+          element={<ActivateInfoPage />}
         />
 
-      </Route>
+        {/* Личный кабинет */}
+        <Route
+          element={
+            <UserProtectedRoute>
+              <UserLayout />
+            </UserProtectedRoute>
+          }
+        >
+          <Route
+            path="/my-shirts"
+            element={<MyShirtsPage />}
+          />
 
-    </Routes>
+          <Route
+            path="/my-shirts/:publicId"
+            element={<UserShirtPage />}
+          />
 
-  );
+          <Route
+            path="/profile"
+            element={<ProfilePage />}
+          />
 
+          <Route
+            path="/claim"
+            element={<ClaimShirtPage />}
+          />
+        </Route>
+
+        {/* Админ-панель */}
+        <Route
+          path="/adm"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route
+            path="dashboard"
+            element={<DashboardPage />}
+          />
+
+          <Route
+            path="users"
+            element={<UsersPage />}
+          />
+
+          <Route
+            path="users/:id"
+            element={<UserDetailsPage />}
+          />
+
+          <Route
+            path="shirts"
+            element={<ShirtsPage />}
+          />
+
+          <Route
+            path="shirts/:id"
+            element={<ShirtDetailsPage />}
+          />
+
+          <Route
+            path="batches"
+            element={<BatchesPage />}
+          />
+
+          <Route
+            path="batches/:id"
+            element={<BatchDetailsPage />}
+          />
+        </Route>
+
+      </Routes>
+    </Suspense>
+ 
+);
 }

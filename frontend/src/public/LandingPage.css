@@ -261,15 +261,17 @@ body {
   padding: 100px var(--container-padding);
 }
 
+
 .section-number {
   display: inline-block;
 
   margin-bottom: 24px;
 
   font-size: 13px;
-  color: rgba(255,255,255,.45);
+  color: rgba(255, 255, 255, 0.72);
   letter-spacing: 2px;
 }
+
 
 .section-dark h2 {
   font-size: 58px;
