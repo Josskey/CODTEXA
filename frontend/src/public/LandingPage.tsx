@@ -6,7 +6,7 @@ import "./effects.css";
 
 
 
-import { FaVk } from "react-icons/fa";
+
 export default function LandingPage() {
   useEffect(() => {
   let cancelled = false;
@@ -589,7 +589,15 @@ export default function LandingPage() {
   className="vk-link"
   aria-label="CODTEXA во ВКонтакте"
 >
-  <FaVk />
+  <svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path d="M12.785 16.77c-5.52 0-8.67-3.79-8.8-10.1h2.77c.09 4.64 2.13 6.6 3.74 7V6.67h2.6v4c1.58-.17 3.26-2 3.82-4h2.6c-.43 2.25-2.25 4.08-3.45 4.83 1.2.61 3.26 2.2 4.04 5.27h-2.86c-.61-1.91-2.15-3.39-4.15-3.59v3.59h-.31Z" />
+</svg>
 </a>
 
       </div>

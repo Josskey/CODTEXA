@@ -291,6 +291,7 @@ export function initQrEffects(options = {}) {
     overlay.classList.add("qrfx-active");
   }
 
+  
   // Scroll reveal
   const revealTargets = [];
 
@@ -308,6 +309,15 @@ export function initQrEffects(options = {}) {
 
     document.querySelectorAll(selectors.join(",")).forEach((el) => {
       if (el.dataset.qrfxReveal === "true") return;
+
+      // Первые две секции должны отображаться сразу
+      const section = el.closest("section");
+      const sections = Array.from(document.querySelectorAll("section"));
+      const sectionIndex = sections.indexOf(section);
+
+      if (sectionIndex === 0 || sectionIndex === 1) {
+        return;
+      }
 
       el.dataset.qrfxReveal = "true";
       el.classList.add("qrfx-reveal");
@@ -332,6 +342,7 @@ export function initQrEffects(options = {}) {
   } else {
     revealTargets.forEach((el) => el.classList.add("qrfx-visible"));
   }
+
 
   // Hover highlights
   const hoverTargets = [];
