@@ -11,16 +11,34 @@ export default function LandingPage() {
   useEffect(() => {
   let cancelled = false;
   let cleanup: (() => void) | undefined;
+  let idleId: number | undefined;
+  let timeoutId: number | undefined;
 
-  // @ts-ignore
-  import("./effects.js").then(({ initQrEffects }) => {
-    if (cancelled) return;
+  const loadEffects = () => {
+    // @ts-ignore
+    import("./effects.js").then(({ initQrEffects }) => {
+      if (cancelled) return;
+      cleanup = initQrEffects();
+    });
+  };
 
-    cleanup = initQrEffects();
-  });
+  if ("requestIdleCallback" in window) {
+    idleId = window.requestIdleCallback(loadEffects, { timeout: 2000 });
+  } else {
+    timeoutId = globalThis.setTimeout(loadEffects, 500);
+  }
 
   return () => {
     cancelled = true;
+
+    if (idleId !== undefined) {
+      window.cancelIdleCallback(idleId);
+    }
+
+    if (timeoutId !== undefined) {
+      globalThis.clearTimeout(timeoutId);
+    }
+
     cleanup?.();
   };
 }, []);
@@ -447,16 +465,16 @@ export default function LandingPage() {
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/collector.webp')"
+      backgroundImage: "url('/images/collector-optimized.webp')"
     }}
   >
-    Коллекционеры
+    Зумеры
   </div>
 
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/blogger.webp')"
+      backgroundImage: "url('/images/blogger-optimized.webp')"
     }}
   >
     Блогеры
@@ -465,7 +483,7 @@ export default function LandingPage() {
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/musician.webp')"
+      backgroundImage: "url('/images/musician-optimized.webp')"
     }}
   >
     Музыканты
@@ -474,7 +492,7 @@ export default function LandingPage() {
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/spicer.webp')"
+      backgroundImage: "url('/images/spicer-optimized.webp')"
     }}
   >
     Спикеры
@@ -483,7 +501,7 @@ export default function LandingPage() {
   <div
     className="audience-card"
     style={{
-      backgroundImage: "url('/images/actor.webp')"
+      backgroundImage: "url('/images/actor-optimized.webp')"
     }}
   >
     Модели

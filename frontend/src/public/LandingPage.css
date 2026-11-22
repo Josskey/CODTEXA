@@ -573,7 +573,9 @@ body {
   border-radius: 24px;
 
   display: flex;
-  align-items: end;
+align-items: flex-end;
+justify-content: center;
+text-align: center;
 
   padding: clamp(12px, 1.5vw, 20px);
 
@@ -1224,8 +1226,9 @@ body {
   border-radius: 24px;
 
   display: flex;
-  align-items: end;
-
+align-items: flex-end;
+justify-content: center;
+text-align: center;
   padding: clamp(12px, 1.5vw, 20px);
 
   font-size: clamp(13px, 1.1vw, 18px);
@@ -1408,5 +1411,22 @@ body {
 
   .landing-actions {
     margin-left: auto;
+  }
+}
+@media (max-width: 678px) {
+  .audience-card {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1083px) {
+  .audience-card {
+    font-size: 11px;
+  }
+}
+@media (max-width: 570px) {
+  .audience-card {
+    font-size: 11px;
+    padding-inline: 4px;
   }
 }
