@@ -1,8 +1,8 @@
-﻿# CODTEXA
+# CODTEXA
 
-РЎРµСЂРІРёСЃ Р°РєС‚РёРІР°С†РёРё Рё СѓРїСЂР°РІР»РµРЅРёСЏ С†РёС„СЂРѕРІС‹Рј РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕРј CODTEXA.
+Сервис активации и управления цифровым пространством CODTEXA.
 
-## РўРµС…РЅРѕР»РѕРіРёРё
+## Технологии
 
 - React + Vite
 - TypeScript
@@ -10,33 +10,35 @@
 - PostgreSQL
 - Docker Compose
 
-## Р—Р°РїСѓСЃРє С‡РµСЂРµР· Docker
+## Запуск через Docker
 
-РЎР±РѕСЂРєР° Рё Р·Р°РїСѓСЃРє:
+Сборка и запуск:
 
 ```bash
 docker compose up -d --build
 ```
 
-Frontend: http://localhost:5173
-Backend: http://localhost:4001
-Health Check: http://localhost:4001/health
+После запуска сервисы доступны по адресам:
 
-## РћСЃС‚Р°РЅРѕРІРєР°
+- Frontend: http://localhost:5173
+- Backend: http://localhost:4001
+- Health Check: http://localhost:4001/health
+
+## Остановка
 
 ```bash
 docker compose down
 ```
 
-> РќРµ РёСЃРїРѕР»СЊР·СѓР№С‚Рµ `docker compose down -v`: PostgreSQL С…СЂР°РЅРёС‚ РґР°РЅРЅС‹Рµ РІ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРј Docker Volume. Р’ РєРѕРЅС„РёРіСѓСЂР°С†РёРё CODTEXA РѕРЅ РЅР°РјРµСЂРµРЅРЅРѕ РїРѕРґРєР»СЋС‡С‘РЅ РїРѕ РїСЂРµР¶РЅРµРјСѓ РёРјРµРЅРё `qr-shirts-v2_postgres_data`, С‡С‚РѕР±С‹ СЃРѕС…СЂР°РЅРёС‚СЊ РґР°РЅРЅС‹Рµ. РРјСЏ Р±Р°Р·С‹ PostgreSQL С‚Р°РєР¶Рµ РЅР°РјРµСЂРµРЅРЅРѕ РѕСЃС‚Р°С‘С‚СЃСЏ `qrshirts`.
+**Важно:** не используйте `docker compose down -v`. PostgreSQL хранит данные в Docker Volume. В конфигурации CODTEXA намеренно используется прежнее имя тома `qr-shirts-v2_postgres_data`, чтобы сохранить существующую базу данных. Имя базы PostgreSQL также остаётся `qrshirts`.
 
-## РџРµСЂРµР·Р°РїСѓСЃРє РїРѕСЃР»Рµ РёР·РјРµРЅРµРЅРёР№
+## Перезапуск после изменений
 
 ```bash
 docker compose up -d --build
 ```
 
-## Р›РѕРєР°Р»СЊРЅР°СЏ СЂР°Р·СЂР°Р±РѕС‚РєР°
+## Локальная разработка
 
 ### Backend
 
@@ -54,7 +56,7 @@ npm install
 npm run dev
 ```
 
-## РЎР±РѕСЂРєР°
+## Сборка
 
 ### Frontend
 
@@ -70,14 +72,14 @@ cd backend
 npm run build
 ```
 
-## РЎС‚СЂСѓРєС‚СѓСЂР° РїСЂРѕРµРєС‚Р°
+## Структура проекта
 
 ```text
 CODTEXA
-в”њв”Ђв”Ђ backend
-в”њв”Ђв”Ђ frontend
-в”њв”Ђв”Ђ database
-в”њв”Ђв”Ђ docs
-в”њв”Ђв”Ђ docker-compose.yml
-в””в”Ђв”Ђ README.md
+├── backend
+├── frontend
+├── database
+├── docker-compose.yml
+├── package.json
+└── README.md
 ```
