@@ -39,7 +39,7 @@ app.get("/health", (_, res) => {
 
   res.json({
     ok: true,
-    service: "qr-shirts-backend",
+    service: "codtexa-backend",
   });
 
 });

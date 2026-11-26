@@ -1,45 +1,41 @@
-services:
+name: codtexa
 
+services:
   postgres:
     image: postgres:17
-    container_name: qrshirts-postgres
-
+    container_name: codtexa-postgres
     environment:
       POSTGRES_DB: qrshirts
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-
     ports:
       - "5433:5432"
-
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   backend:
+    image: codtexa-backend:latest
     build: ./backend
-    container_name: qrshirts-backend
-
+    container_name: codtexa-backend
     depends_on:
       - postgres
-
     ports:
       - "4001:4001"
-
     env_file:
       - ./backend/.env
 
   frontend:
+    image: codtexa-frontend:latest
     build: ./frontend
-    container_name: qrshirts-frontend
-
+    container_name: codtexa-frontend
     depends_on:
       - backend
-
     ports:
       - "5173:4173"
-
     env_file:
       - ./frontend/.env
 
 volumes:
   postgres_data:
+    external: true
+    name: qr-shirts-v2_postgres_data

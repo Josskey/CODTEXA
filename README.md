@@ -1,8 +1,8 @@
-# СODTEXA 2.0
+﻿# CODTEXA
 
-Сервис активации футболок с QR-кодами.
+РЎРµСЂРІРёСЃ Р°РєС‚РёРІР°С†РёРё Рё СѓРїСЂР°РІР»РµРЅРёСЏ С†РёС„СЂРѕРІС‹Рј РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕРј CODTEXA.
 
-## Технологии
+## РўРµС…РЅРѕР»РѕРіРёРё
 
 - React + Vite
 - TypeScript
@@ -10,40 +10,33 @@
 - PostgreSQL
 - Docker Compose
 
-## Запуск через Docker
+## Р—Р°РїСѓСЃРє С‡РµСЂРµР· Docker
 
-Сборка и запуск:
+РЎР±РѕСЂРєР° Рё Р·Р°РїСѓСЃРє:
 
 ```bash
 docker compose up -d --build
 ```
 
-Frontend:
+Frontend: http://localhost:5173
+Backend: http://localhost:4001
+Health Check: http://localhost:4001/health
 
-http://localhost:5173
-
-Backend:
-
-http://localhost:4001
-
-Health Check:
-
-http://localhost:4001/health
-```
-
-## Остановка
+## РћСЃС‚Р°РЅРѕРІРєР°
 
 ```bash
 docker compose down
 ```
 
-## Перезапуск после изменений
+> РќРµ РёСЃРїРѕР»СЊР·СѓР№С‚Рµ `docker compose down -v`: PostgreSQL С…СЂР°РЅРёС‚ РґР°РЅРЅС‹Рµ РІ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРј Docker Volume. Р’ РєРѕРЅС„РёРіСѓСЂР°С†РёРё CODTEXA РѕРЅ РЅР°РјРµСЂРµРЅРЅРѕ РїРѕРґРєР»СЋС‡С‘РЅ РїРѕ РїСЂРµР¶РЅРµРјСѓ РёРјРµРЅРё `qr-shirts-v2_postgres_data`, С‡С‚РѕР±С‹ СЃРѕС…СЂР°РЅРёС‚СЊ РґР°РЅРЅС‹Рµ. РРјСЏ Р±Р°Р·С‹ PostgreSQL С‚Р°РєР¶Рµ РЅР°РјРµСЂРµРЅРЅРѕ РѕСЃС‚Р°С‘С‚СЃСЏ `qrshirts`.
+
+## РџРµСЂРµР·Р°РїСѓСЃРє РїРѕСЃР»Рµ РёР·РјРµРЅРµРЅРёР№
 
 ```bash
 docker compose up -d --build
 ```
 
-## Локальная разработка
+## Р›РѕРєР°Р»СЊРЅР°СЏ СЂР°Р·СЂР°Р±РѕС‚РєР°
 
 ### Backend
 
@@ -61,7 +54,7 @@ npm install
 npm run dev
 ```
 
-## Сборка
+## РЎР±РѕСЂРєР°
 
 ### Frontend
 
@@ -77,14 +70,14 @@ cd backend
 npm run build
 ```
 
-## Структура проекта
+## РЎС‚СЂСѓРєС‚СѓСЂР° РїСЂРѕРµРєС‚Р°
 
 ```text
-qr-shirts-v2
-├── backend
-├── frontend
-├── database
-├── docs
-├── docker-compose.yml
-└── README.md
+CODTEXA
+в”њв”Ђв”Ђ backend
+в”њв”Ђв”Ђ frontend
+в”њв”Ђв”Ђ database
+в”њв”Ђв”Ђ docs
+в”њв”Ђв”Ђ docker-compose.yml
+в””в”Ђв”Ђ README.md
 ```

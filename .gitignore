@@ -32,3 +32,8 @@ frontend/dist
 # backend
 backend/node_modules
 backend/dist
+
+# CODTEXA temporary backups and migration files
+*.dump
+_backup_before_CODTEXA_*/
+CODTEXA-rename-patch/
